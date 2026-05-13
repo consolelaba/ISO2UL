@@ -13,12 +13,10 @@
 #include <io.h> //TODO: check if it's necesary for the code to work
 #define LSEEK64 _lseeki64
 #define PATHSEP "\\"
-#endif
-
-#ifdef __linux__
+#else
 #include <sys/types.h>
 #include <unistd.h>
-#define LSEEK64 lseek64
+#define LSEEK64 lseek
 #define PATHSEP "/"
 #endif
 
@@ -52,7 +50,7 @@ unsigned int crctab[0x400];
 void ropen()
 {
     fhin = open(infile, O_RDONLY 
-#ifndef __linux__
+#ifdef _WIN32
 	| O_BINARY
 #endif
 	);
@@ -64,8 +62,8 @@ void ropen()
 
 void ropena()
 {
-    fhin = open(infile, O_RDWR | O_CREAT | S_IWRITE | O_APPEND 
-#ifndef __linux__
+    fhin = open(infile, O_RDWR | O_CREAT | S_IWRITE | O_APPEND
+#ifdef _WIN32
 	| O_BINARY
 #endif
 	);
@@ -83,7 +81,7 @@ void rclose()
 void wopen()
 {
     fhout = open(outfile, O_CREAT | S_IWRITE | O_WRONLY
-#ifndef __linux__
+#ifdef _WIN32
 	| O_BINARY
 #endif
 	);

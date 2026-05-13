@@ -13,10 +13,25 @@ where:
 - `TITLE` game title to be shown on OPL, max `32` chars
 - `CD/DVD` media type
 
+## build (macOS / Linux)
+
+```
+cmake -B build
+cmake --build build --config Release
+```
+
+The compiled binary will be at `build/ISO2UL`.
+
+## usage
+
+```
+ISO2UL IMAGEFILE ROOTPATH "TITLE" [CD/DVD]
+```
+
 Example:
 
 ```
-ISO2UL.exe "I:\games\foo.ISO" "D:\GAMES" "my 32 chars title" CD
+ISO2UL "I:\games\foo.ISO" "D:\GAMES" "my 32 chars title" CD
 ```
 
 
